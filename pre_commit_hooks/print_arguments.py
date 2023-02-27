@@ -1,8 +1,7 @@
 # print_arguments/main.py
-#triger ?
 import argparse
 import os
-import datetime
+from Sorting import run
 
 
 def print_arguments(arguments: list[str]):
@@ -10,7 +9,9 @@ def print_arguments(arguments: list[str]):
         print(argument)
 
 def excpetionThrow(filepath):
-    raise Exception("Hey, it seems like you have not compiled the latest version of " + filepath + " yet, compile it into a pdf before commiting it to the branch")
+    raise Exception(
+        f"Hey, it seems like you have not compiled the latest version of {filepath} yet, compile it into a pdf before commiting it to the branch"
+    )
 
 
 def main():
@@ -32,9 +33,11 @@ def main():
             elif(i.split(".")[-1].lower() == "pdf"):
                 timeCheckPdf[i.split(".")[0]] = os.path.getmtime(os.getcwd()+"\\"+i)
     for texName in timeCheckTex.keys():
-        if timeCheckTex[texName] - timeCheckPdf.get(texName, 0) > 60:
+        if timeCheckTex[texName] - timeCheckPdf.get(texName, 0) > 600:
             excpetionThrow(texName)
     print_arguments(args.filenames)
+    run()
+    
 
 
 if __name__ == "__main__":

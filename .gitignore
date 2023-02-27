@@ -41,3 +41,10 @@
 
 *.txt
 *.log
+
+__pycache__/
+/.idea/*
+.idea/*
+
+Synthèse/TroncCommun/LEPL1106 - Signaux et Systèmes/Devoir/.ipynb_checkpoints/*
+/Synthèse/TroncCommun/LEPL1106 - Signaux et Systèmes/Devoir/.ipynb_checkpoints/*

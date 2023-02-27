@@ -1,6 +1,6 @@
 # .pre-commit-hooks.yaml
 - id: some-id
-  name: some-name
-  description: some description
+  name: tex-check
+  description: Check if you have compiled your .tex file in .pdf
   entry: print_arguments
   language: python
