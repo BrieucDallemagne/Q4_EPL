@@ -9,6 +9,7 @@ Purple='\033[0;35m'       # Purple
 Cyan='\033[0;36m'         # Cyan
 White='\033[0;37m'
 
+
 echo -e "${Cyan}Welcome to the INSTALLER of${RED} Q4_EPL${NC}"
 sleep 2
 
@@ -16,8 +17,15 @@ pip install pre-commit # Install the pre-commit depedency through pip
 
 # Making sure to execute the command is executed where the Repo is located on the device
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-cd "$SCRIPT_DIR"
-var=$(pre-commit.exe install)
+cd "$SCRIPT_DIR" 
+
+# Adding check for Windows and Linux environnement
+if [ "$OSTYPE" = "linux-gnu" ]
+then
+  var=$(pre-commit install)
+else
+  var=$(pre-commit.exe install)
+fi
 
 if [ "$var" = "bash: pre-commit: command not found" ] || [ "$var" = "pre-commit: command not found"]
 then
@@ -27,11 +35,18 @@ else
 fi
 
 # Check if the pre-commit app is well installed
-location=$(where pre-commit)
-if [ "${location:${#location}-4:4}" != ".exe" ]
+if [ "$OSTYPE" = "linux-gnu" ]
 then
-  echo -e "${RED}Mmh, something is off with your pre-commit app !${NC}"
-  echo "${SCRIPT_DIR} we executed here"
+  location=$(whereis pre-commit)
+else
+  location=$(where pre-commit)
+  if [ "${location:${#location}-4:4}" != ".exe" ] ||
+  then
+    echo -e "${RED}Mmh, something is off with your pre-commit app !${NC}"
+    echo "${SCRIPT_DIR} we executed here"
+  fi
 fi
+
+echo $location
 
 sleep 10
